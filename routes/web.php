@@ -24,6 +24,17 @@ Route::post('/submit-update', [UserController::class, 'submitUpdate']);
 
 Route::get('/delete/{id}', [UserController::class, 'userDelete']);
 
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/admin', [UserController::class, 'admin']);
+// });
+
+Route::get('/post', [UserController::class, 'getPost']);
+
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin', [UserController::class, 'admin']);
+});
+
+Route::middleware(['auth', 'role:customer'])->group(function () {
+    Route::get('/customer', [UserController::class, 'customer']);
 });

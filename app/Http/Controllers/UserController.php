@@ -144,7 +144,20 @@ class UserController extends Controller
     }
 
     public function admin() {
-        return view('admin');
+        return 'You are login type as Admin';
+    }
+
+    public function customer() {
+        return 'You are login type as Customer';
+    }
+
+    public function getPost() {
+        $posts = DB::table('post')
+                    ->join('users', 'post.author_id', 'users.id')
+                    ->select('post.*', 'users.name')
+                    ->orderBy('post.id', 'DESC')
+                    ->get();
+        return $posts;
     }
 
 }
